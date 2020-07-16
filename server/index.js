@@ -15,9 +15,14 @@ import search from "./interface/search";
 import categroy from "./interface/categroy";
 import cart from "./interface/cart";
 import order from "./interface/order";
+import upgrade from "./interface/update";
 
 const app = new Koa();
-const host = process.env.HOST || "127.0.0.1";
+app.context.upgrading = false;
+var server = null;
+
+// const host = process.env.HOST || "127.0.0.1";
+const host = process.env.HOST || "0.0.0.0";
 const port = process.env.PORT || 3000;
 
 app.keys = ["mt", "keyskeys"];
@@ -36,26 +41,31 @@ mongoose.connect(dbConfig.dbs, {
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Import and Set Nuxt.js options
-const config = require("../nuxt.config.js");
-config.dev = !(app.env === "production");
+export async function start() {
+  if (app.context.upgrading) {
+    return;
+  }
+  app.context.upgrading = true;
+  // Import and Set Nuxt.js options
+  let config = require("../nuxt.config.js");
+  config.dev = !(app.env === "production");
 
-async function start() {
   // Instantiate nuxt.js
   const nuxt = new Nuxt(config);
 
-  // const {
-  //   host = process.env.HOST || "127.0.0.1",
-  //   port = process.env.PORT || 3000
-  // } = nuxt.options.server;
-
   // Build in development
-  if (config.dev) {
-    const builder = new Builder(nuxt);
-    await builder.build();
-  } else {
-    await nuxt.ready();
-  }
+  // if (config.dev) {
+  const builder = new Builder(nuxt);
+  await builder.build();
+  // } else {
+  //   await nuxt.ready();
+  // }
+
+  // server || createServer();
+  app.context.upgrading = false;
+
+  app.use(upgrade.routes()).use(upgrade.allowedMethods());
+
   app.use(users.routes()).use(users.allowedMethods());
   app.use(geo.routes()).use(geo.allowedMethods());
   app.use(search.routes()).use(search.allowedMethods());
@@ -76,11 +86,39 @@ async function start() {
     });
   });
 
-  app.listen(port, host);
+  server = app.listen(port, host);
   consola.ready({
     message: `Server listening on http://${host}:${port}`,
     badge: true
   });
 }
+
+// function createServer() {
+//   app.use(users.routes()).use(users.allowedMethods());
+//   app.use(geo.routes()).use(geo.allowedMethods());
+//   app.use(search.routes()).use(search.allowedMethods());
+//   app.use(categroy.routes()).use(categroy.allowedMethods());
+//   app.use(cart.routes()).use(cart.allowedMethods());
+//   app.use(order.routes()).use(order.allowedMethods());
+
+//   app.use(ctx => {
+//     ctx.status = 200; // koa defaults to 404 when it sees that status is unset
+
+//     return new Promise((resolve, reject) => {
+//       ctx.res.on("close", resolve);
+//       ctx.res.on("finish", resolve);
+//       nuxt.render(ctx.req, ctx.res, promise => {
+//         // nuxt.render passes a rejected promise into callback on error.
+//         promise.then(resolve).catch(reject);
+//       });
+//     });
+//   });
+
+//   server = app.listen(port, host);
+//   consola.ready({
+//     message: `Server listening on http://${host}:${port}`,
+//     badge: true
+//   });
+// }
 
 start();

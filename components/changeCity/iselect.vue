@@ -106,6 +106,6 @@ export default {
 }
 </script>
 
-<style lang = 'scss'>
-@import '@/assets/css/changeCity/iselect.scss';
+<style lang = 'scss' src='@/assets/css/changeCity/iselect.scss'>
+/* @import '~@/assets/css/changeCity/iselect.scss'; */
 </style>

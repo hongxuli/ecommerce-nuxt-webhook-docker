@@ -39,6 +39,6 @@ export default {
 }
 </script>
 
-<style lang="scss">
-@import '@/assets/css/changeCity/hot.scss';
+<style lang="scss" src='@/assets/css/changeCity/hot.scss'>
+// @import '~@/assets/css/changeCity/hot.scss';
 </style>

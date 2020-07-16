@@ -75,6 +75,6 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import '@/assets/css/changeCity/categroy.scss';
+<style lang="scss" scoped src='@/assets/css/changeCity/categroy.scss'>
+// @import '.../assets/css/changeCity/categroy.scss';
 </style>

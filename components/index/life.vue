@@ -19,7 +19,7 @@
             Hi! 你好
           </p>
           <p>
-            <nuxt-link to="/rigster">
+            <nuxt-link to="/register">
               <el-button
                 round
                 size="medium"
