@@ -1,6 +1,6 @@
 # mt-app
 
-> My shining Nuxt.js project
+> My  Nuxt.js project
 
 ## Build Setup
 
