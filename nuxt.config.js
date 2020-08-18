@@ -2,7 +2,7 @@ const pkg = require("./package");
 
 module.exports = {
   env: {
-    // baseUrl: process.env.BASE_URL || "http://localhost:3000"
+    baseUrl: process.env.BASE_URL || "http://localhost:3000"
   },
   mode: "universal",
 
@@ -44,15 +44,20 @@ module.exports = {
    */
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
-    "@nuxtjs/axios"
+    "@nuxtjs/axios",
+    "@nuxtjs/dotenv"
   ],
   /*
    ** Axios module configuration
    */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    baseURL: "http://159.203.43.14:3000"
-    // baseURL: process.env.baseUrl
+    // baseURL: "http://localhost:3000"
+    baseURL:
+      process.env.NODE_ENV === "production"
+        ? process.env.PROD_API
+        : process.env.DEV_API
+    // baseURL: process.env.PROD_API
   },
 
   /*
@@ -62,6 +67,20 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
+    analyze: true,
+    babel: {
+      plugins: [
+        [
+          "component",
+          {
+            libraryName: "element-ui",
+            styleLibraryName: "theme-chalk"
+          }
+        ],
+        "lodash"
+      ]
+    },
+
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {

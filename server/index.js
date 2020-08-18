@@ -16,7 +16,7 @@ import categroy from "./interface/categroy";
 import cart from "./interface/cart";
 import order from "./interface/order";
 import upgrade from "./interface/update";
-
+require("dotenv").config();
 const app = new Koa();
 app.context.upgrading = false;
 var server = null;

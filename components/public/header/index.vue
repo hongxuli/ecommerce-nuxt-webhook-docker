@@ -22,8 +22,10 @@ export default {
     searchBar
   }
 }
+
+
 </script>
 
 <style lang="scss">
-  @import "@/assets/css/public/header/index.scss";
+@import '@/assets/css/public/header/index.scss';
 </style>

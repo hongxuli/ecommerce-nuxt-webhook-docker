@@ -1,6 +1,8 @@
-export default function({ store, redirect, app: { $axios } }) {
-  $axios.defaults.baseURL = process.env.baseUrl;
-  $axios.onRequest(config => {});
+export default function({ $axios, store, redirect }) {
+  // client side axios
+  $axios.onRequest(config => {
+    console.log("Making request to " + config.url);
+  });
   $axios.onError(error => {});
   $axios.interceptors.response.use(response => {
     if (response.data.errDesc != null) {

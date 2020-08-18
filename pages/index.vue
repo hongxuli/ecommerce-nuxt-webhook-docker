@@ -18,6 +18,7 @@
 import Emenu from '@/components/index/menu.vue'
 import Life from '@/components/index/life.vue'
 import Artistic from '@/components/index/artistic.vue'
+
 export default {
   components: {
     Emenu,

@@ -12,10 +12,12 @@
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint-fix": "eslint --fix --ext .js,.vue src",
-    "report": "webpack --config webpack.dev.js --progress"
+    "report": "webpack --config webpack.dev.js --progress",
+    "analyze": "nuxt build -a"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/dotenv": "^1.4.1",
     "axios": "0.18.0",
     "babel-node": "0.0.1-security",
     "babel-preset-es2015": "^6.24.1",
@@ -45,6 +47,9 @@
     "@nuxtjs/eslint-module": "^1.0.0",
     "babel-cli": "^6.26.0",
     "babel-eslint": "^10.0.1",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-component": "^1.1.1",
+    "babel-plugin-lodash": "^3.3.4",
     "cross-env": "^5.2.1",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^14.0.0",
